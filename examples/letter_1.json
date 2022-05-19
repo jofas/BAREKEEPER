@@ -1,0 +1,33 @@
+{
+  "sender": {
+    "address": {
+      "street": "Second Ave",
+      "house_number": "2131",
+      "postal_code": "54321",
+      "place": "Nowhere",
+      "country": "Germany"
+    },
+    "company": "Company 1",
+    "name": null,
+    "phone": "+49 1245 678910",
+    "email": "test@company1.de"
+  },
+  "letter_date": "2021-03-12",
+  "letter_nr": 1,
+  "recipient": {
+    "address": {
+      "street": "Main Street",
+      "house_number": "12b",
+      "postal_code": "12345",
+      "place": "Somewhere",
+      "country": "Germany"
+    },
+    "company": "Company 2",
+    "name": null,
+    "phone": null,
+    "email": null
+  },
+  "headline": null,
+  "content": "Sehr geehrte Damen und Herren,\n\nLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  "closing": "Mit freundlichen Grüßen"
+}

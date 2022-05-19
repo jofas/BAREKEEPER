@@ -1,0 +1,118 @@
+\documentclass{letter}
+\usepackage[german]{babel}
+\usepackage{tabu}
+\usepackage{datetime}
+\usepackage[colorlinks=true, urlcolor=black]{hyperref} % Links
+\usepackage{fancyhdr}
+\usepackage[margin=0.5in]{geometry}
+
+\geometry{left=20mm,right=20mm,top=20mm,bottom=40mm}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\cfoot{
+  \begin{tabu}{lXllXll}
+  {% if sender.company is not none and sender.name is not none %} %
+    {{ sender.company }}
+    &&&&&&\\
+  {{ sender.name }} %
+  {% elif sender.company is not none %} %
+    {{ sender.company }} %
+  {% elif sender.name is not none %} %
+    {{ sender.name }} %
+  {% endif %} %
+    &
+    &E-Mail:
+    &\href{mailto:{{ sender.email }} }{ {{ sender.email }} }
+    &
+    &
+    &{{ payment_details.bank }} \\
+  {{ sender.address.street }} {{ sender.address.house_number }}
+    &
+    &Tel.:
+    &{{ sender.phone }}
+    &
+    &IBAN:
+    &{{ payment_details.iban }} \\
+  {{ sender.address.postal_code }} {{sender.address.place }}
+   &
+   &St.-Nr.:
+   &{{ tax_id }}
+   &
+   &BIC:
+   &{{ payment_details.bic }} \\
+  \end{tabu}
+}
+
+\def\returnaddr{
+  {\scriptsize {{ sender.company }} | %
+    {% if sender.name is not none %}{{ sender.name }} | {% endif %} %
+    {{ sender.address.street }} {{ sender.address.house_number }} | %
+    {{ sender.address.postal_code }} {{ sender.address.place }}
+  }
+}
+
+\def\recipient{
+  {% if recipient.company is not none %}{{ recipient.company }}\\{% endif %} %
+  {% if recipient.name is not none %}{{ recipient.name }}\\{% endif %} %
+  {{ recipient.address.street }} {{ recipient.address.house_number }} \\
+  {{ recipient.address.postal_code }} {{ recipient.address.place }} \\
+  {{ recipient.address.country }}
+}
+
+\def\sender{
+  {% if sender.company is not none %}{{ sender.company }}\\{% endif %} %
+  {% if sender.name is not none %}{{ sender.name }}\\{% endif %} %
+  {{ sender.address.street }} {{ sender.address.house_number }} \\
+  {{ sender.address.postal_code }} {{sender.address.place }} \\
+  {{ sender.address.country }} \\~\\
+  Tel.: {{ sender.phone }} \\
+  E-Mail: \href{mailto:{{ sender.email }} }{ {{ sender.email }} }
+}
+
+\newdate{date}{ {{ invoice_date.day }} }{ {{ invoice_date.month }} }{ {{invoice_date.year }} }
+\date{\displaydate{date}}
+
+\pagestyle{fancy}
+
+\begin{document}
+
+  \begin{flushright}
+    \sender
+  \end{flushright}
+  ~\\
+
+  \returnaddr
+
+  \recipient\\\\
+
+  \begin{flushright}
+    \displaydate{date}
+  \end{flushright}
+
+  \textbf{\Large{Rechnung Nr.\ {{ invoice_nr }} }}
+
+  \begin{tabu}{|l|X|r|}
+    \hline
+    \textbf{Leistungszeitraum} &\textbf{Beschreibung} &\textbf{Preis} \\
+    \hline
+    {% for entry in entries %}
+      {{ entry.start.strftime("%d.%m.%Y") }} {% if entry.end != None %} - {{ entry.end.strftime("%d.%m.%Y") }} {% endif %}
+      &{{ entry.description }} &{{ locale.currency(entry.price, grouping=True) }}\\
+      \hline
+    {% endfor %}
+    \multicolumn{3}{c}{}\\
+    \cline{2-3}
+    \multicolumn{1}{c|}{}&Zwischensumme ohne MwSt. &{{ locale.currency(sum_, grouping=True) }}\\
+    \cline{2-3}
+    \multicolumn{1}{c|}{}&19\% MwSt. &{{ locale.currency(tax, grouping=True) }}\\
+    \cline{2-3}
+    \multicolumn{1}{c|}{}&\textbf{Gesamtbetrag} &\textbf{ {{ locale.currency(sum_ + tax, grouping = True) }} }\\
+    \cline{2-3}
+  \end{tabu}
+  ~\\ ~\\
+  Bitte \"uberweisen Sie den Gesamtbetrag auf Konto Nr. {{ payment_details.iban }}.
+\end{document}
