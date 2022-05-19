@@ -1,5 +1,11 @@
 # ![BAREKEEPER](./barekeeper.gif)
 
+> Thus said the LORD unto Moses, thou shalt not force a software developer to leave their terminal.
+>
+> Thou shalt not use a mouse, it is of its father the devil.
+>
+> ~ Exodus 20:27-28
+
 Generates invoice PDFs from structured data using a LaTeX template.
 The data is provided by a `json/jsonnet` file.
 Also supports the generation of business letters.
