@@ -61,7 +61,7 @@ pdf.add_font("OpenSansBold", fname="fonts/open_sans/static/OpenSans/OpenSans-Bol
 
 pdf.add_page()
 
-pdf.set_margins(left=20, top=40)
+pdf.set_margins(left=20, top=20)
 
 pdf.set_font("OpenSans", size=10)
 
@@ -112,11 +112,7 @@ for entry in data:
             txt=str(c),
             border=1,
             ln=3,
-            #new_x="RIGHT",
-            #new_y="TOP",
         )
     pdf.ln(lh)
-
-# TODO: footer
 
 pdf.output("test.pdf", "F")

@@ -40,7 +40,11 @@ the `invoice_nr`/`letter_nr` provided by the `json` input.
 
 * [x] archive `invoice_generator`
 
-* [ ] replace `pdflatex` with `pyFPDF`
+* [ ] replace `pdflatex` with `pyFPDF2`
+
+* [ ] abstract `example_pdf.py` into an extensible api
+
+* [ ] make table look like current table
 
 * [ ] installation script (and maybe single distribution with
   dependencies included?)
