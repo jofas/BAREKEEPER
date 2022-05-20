@@ -1,5 +1,7 @@
 from fpdf import FPDF
 
+from BAREKEEPER import Invoice
+
 sender="""\
 Company 1
 Second Ave 2131
