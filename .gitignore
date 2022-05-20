@@ -8,3 +8,6 @@ hours.jsonnet
 build/
 
 __pycache__/
+
+# font files
+*.pkl
