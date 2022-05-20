@@ -1,6 +1,7 @@
 # ![BAREKEEPER](./barekeeper.gif)
 
-> Thus said the LORD unto Moses, thou shalt not force a software developer to leave their terminal.
+> Thus said the LORD unto Moses, thou shalt not force a software 
+> developer to leave their terminal.
 >
 > Thou shalt not use a mouse, it is of its father the devil.
 >
