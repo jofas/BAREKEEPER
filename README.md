@@ -46,6 +46,12 @@ the `invoice_nr`/`letter_nr` provided by the `json` input.
 
 * [ ] make table look like current table
 
+* [ ] ability to provide your own backend for creating pdfs
+
+* [ ] support for logos
+
+* [ ] test multipage invoices
+
 * [ ] installation script (and maybe single distribution with
   dependencies included?)
 
