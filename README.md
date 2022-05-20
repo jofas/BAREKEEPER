@@ -40,8 +40,7 @@ the `invoice_nr`/`letter_nr` provided by the `json` input.
 
 * [x] archive `invoice_generator`
 
-* [ ] replace `pdflatex` with `reportlab` or some other python native
-  pdf generator
+* [ ] replace `pdflatex` with `pyFPDF`
 
 * [ ] installation script (and maybe single distribution with
   dependencies included?)
