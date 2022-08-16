@@ -19,6 +19,11 @@
 
 * [ ] `time management`: date filter (y, m, d, ym, ymd)
 
+* [ ] `time management`: some mechanism for transforming aggregated
+                         data
+
+* [ ] `time management`: csv and json as output options
+
 * [ ] offer generator
 
 * [ ] cost management
