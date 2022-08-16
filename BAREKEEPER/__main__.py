@@ -6,6 +6,7 @@ import fire
 from src.time import TimeEntry, Aggregator
 import src.query_language as ql
 
+
 class BAREKEEPER:
     def __init__(self, filename="-"):
         if filename == "-":

@@ -1,6 +1,7 @@
 import functools
 from dateutil import parser as dateparser
 
+
 class TimeEntry:
     def __init__(self, date, description, hours, project):
         self.date = dateparser.isoparse(date)

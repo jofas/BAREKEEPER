@@ -102,6 +102,7 @@ class StrExactEq(Op):
     def __repr__(self):
         return "== {}".format(self.s)
 
+
 class StrRegexEq(Op):
     def __init__(self, s):
         self.re = re.compile(s)

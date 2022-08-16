@@ -1,5 +1,6 @@
 from dateutil import parser
 
+
 class Address:
     def __init__(self, street, house_number, postal_code, place, country):
         self.street = street
