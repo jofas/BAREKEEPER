@@ -9,24 +9,62 @@ __QL = Lark("""
 
     query_group: "(" query ")"
 
-    project_query: project str_eq_ops ESCAPED_STRING
-                 | ESCAPED_STRING str_eq_ops project
+    project_query: project str_cmp_ops ESCAPED_STRING
+                 | ESCAPED_STRING str_cmp_ops project
 
-    logical_ops: and | or
+    data_query: DATE cmp_ops DATE_FMT
+              | DATE_FMT cmp_ops DATE
 
-    and: "AND" | "and" | "&"
-    or: "OR" | "or" | "|"
+    year_query: YEAR cmp_ops INT
+              | INT cmp_ops YEAR
 
-    str_eq_ops: str_exact_equal
-              | str_regex_equal
-              | str_prefix_equal
+    month_query: MONTH cmp_ops INT
+             | INT cmp_ops MONTH
+             | MONTH cmp_ops MONTH_NAME
+             | MONTH_NAME cmp_ops MONTH
 
-    str_exact_equal: "=="
+    day_query: DAY cmp_ops INT
+             | INT cmp_ops DAY
+             | DAY cmp_ops WEEKDAY
+             | WEEKDAY cmp_ops DAY
+
+    logical_ops: AND | OR
+
+    AND: "and"i | "&"
+    OR: "or"i | "|"
+
+    cmp_ops: eq
+           | geq
+           | gr
+           | leq
+           | le
+
+    eq: "=="
+    geq: ">="
+    gr: ">"
+    leq: "<="
+    le: "<"
+
+    str_cmp_ops: eq
+               | str_regex_equal
+               | str_prefix_equal
+
     str_regex_equal: "~="
     str_prefix_equal: ".="
 
+    DATE_FMT: INT "-" INT "-" INT
+
+    WEEKDAY: "mon"i | "tue"i | "wed"i | "thu"i | "fri"i | "sat"i | "sun"i
+    MONTH_NAME: "jan"i | "feb"i | "mar"i | "apr"i | "may"i | "jun"i | "jul"i | "oct"i | "nov"i | "dez"i
+
     project: "p"
 
+    DATE: "d"
+    YEAR: "d.y"
+    MONTH: "d.m"
+    DAY: "d.d"
+
+    %import common.INT
     %import common.ESCAPED_STRING
     %import common.WS
     %ignore WS
@@ -59,7 +97,7 @@ class __QueryTreeGenerator(Transformer):
 
         s = rhs if lhs == "project" else lhs
 
-        if op == "str_exact_equal":
+        if op == "eq":
             return ProjectQuery(StrExactEq(s))
         elif op == "str_regex_equal":
             return ProjectQuery(StrRegexEq(s))
@@ -71,7 +109,7 @@ class __QueryTreeGenerator(Transformer):
     def logical_ops(self, op):
         return op[0].data.value
 
-    def str_eq_ops(self, op):
+    def str_cmp_ops(self, op):
         return op[0].data.value
 
     def project(self, op):

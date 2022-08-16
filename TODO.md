@@ -11,18 +11,29 @@
 
 * [ ] `JSONNET_PATH` for importing the `.libsonnet` files
 
-* [ ] `time management`: aggregator `p[*]`
-
 * [x] `time management`: date aggregators same as date filters
 
 * [x] `time management`: filter (before aggregator)
 
 * [x] `time management`: project filter (== ~= \=)
 
-* [ ] `time management`: date filter (y, m, d, ym, ymd)
+* [ ] aggregate by weekday, month name
+
+* [ ] >, >=, <, <=, ==
+
+* [ ] `d.d == 5`, `d.d == "Mon"`, `d.m > 9`, `d.m >= "Oct",  
+  `d.y > 2020`, `d == "2020-05-12"`
+
+* [ ] `time management`: date filter (d.d, d.m, d.y, d)
+
+* [ ] `time management`: better aggregation interface
+
+* [ ] `time management`: transformation interface
+
+* [ ] `time management`: aggregator `p[*]`
 
 * [ ] `time management`: some mechanism for transforming aggregated
-                         data
+  data
 
 * [x] `time management`: json output
 
