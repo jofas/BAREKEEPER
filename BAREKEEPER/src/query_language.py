@@ -59,8 +59,6 @@ class __QueryTreeGenerator(Transformer):
 
         s = rhs if lhs == "project" else lhs
 
-        print(lhs, op, rhs, s)
-
         if op == "str_exact_equal":
             return ProjectQuery(StrExactEq(s))
         elif op == "str_regex_equal":

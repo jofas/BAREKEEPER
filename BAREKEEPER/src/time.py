@@ -3,13 +3,17 @@ import json
 from datetime import datetime
 from dateutil import parser as dateparser
 
+from .util import fmt_date
+
 
 class TimeEntry:
-    def __init__(self, date, description, hours, project):
-        self.date = dateparser.isoparse(date)
-        self.description = description
+    def __init__(self, project, hours, date=None, description=None):
         self.hours = hours
         self.project = project
+
+        self.date = dateparser.isoparse(date) if date is not None else None
+
+        self.description = description
 
     def __repr__(self):
         return str(self.__dict__)
@@ -31,11 +35,15 @@ class Aggregator:
 
     def sum_hours(self):
         if isinstance(self.entries, list):
-            self.entries = {
-                "hours": functools.reduce(
-                    lambda acc, e: acc + e.hours, self.entries, 0
-                ),
-            }
+
+            self.entries = [
+                TimeEntry(
+                    self.entries[0].project,
+                    functools.reduce(
+                        lambda acc, e: acc + e.hours, self.entries, 0
+                    ),
+                )
+            ]
         else:
             for v in self.entries.values():
                 v.sum_hours()
@@ -57,11 +65,12 @@ class Aggregator:
         return json.dumps(self, default=self.__serialize_json, indent=2)
 
     def __serialize_json(self, o):
-        if isinstance(o, list):
-            return o
-        elif isinstance(o, Aggregator):
-            return o.entries
+        if isinstance(o, Aggregator):
+            if isinstance(o.entries, list):
+                return o.entries
+            else:
+                return {str(k): v for k, v in o.entries.items()}
         elif isinstance(o, datetime):
-            return  "{:04d}-{:02d}-{:02d}".format(o.year, o.month, o.day)
+            return fmt_date(o)
         else:
-            return o.__dict__
+            return {k: v for k, v in o.__dict__.items() if v is not None}

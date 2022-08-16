@@ -1,10 +1,12 @@
 import json
 import sys
+from datetime import datetime
 
 import fire
 
 from src.time import TimeEntry, Aggregator
 import src.query_language as ql
+from src.util import fmt_date
 
 
 class BAREKEEPER:
@@ -25,18 +27,21 @@ class BAREKEEPER:
         a = Aggregator(entries)
 
         for aggregation in dict.fromkeys(aggregations):
-            # TODO: set title
-            if aggregation == "project":
+            if aggregation == "p":
                 a.aggregate(lambda e: e.project)
-            elif aggregation == "month":
+            elif aggregation == "m":
                 a.aggregate(lambda e: e.date.month)
-            elif aggregation == "year":
+            elif aggregation == "y":
                 a.aggregate(lambda e: e.date.year)
-            # TODO: day
+            elif aggregation == "d":
+                a.aggregate(lambda e: e.date.day)
+            elif aggregation == "ym":
+                a.aggregate(lambda e: fmt_date(e.date, day=False))
+            elif aggregation == "ymd":
+                a.aggregate(lambda e: fmt_date(e.date))
             else:
                 raise Exception("unknown aggregation: {}".format(aggregation))
 
-        # sum
         a.sum_hours()
 
         print(a.to_json())

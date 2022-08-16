@@ -11,9 +11,9 @@
 
 * [ ] `JSONNET_PATH` for importing the `.libsonnet` files
 
-* [ ] `time management`: aggregator `project[*]`
+* [ ] `time management`: aggregator `p[*]`
 
-* [ ] `time management`: date aggregators same as date filters
+* [x] `time management`: date aggregators same as date filters
 
 * [x] `time management`: filter (before aggregator)
 
