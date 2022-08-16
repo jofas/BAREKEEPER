@@ -37,7 +37,7 @@ class BAREKEEPER:
         # sum
         a.sum_hours()
 
-        print(a)
+        print(a.to_json())
 
 
 if __name__ == "__main__":

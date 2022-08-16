@@ -13,6 +13,8 @@
 
 * [ ] `time management`: aggregator `project[*]`
 
+* [ ] `time management`: date aggregators same as date filters
+
 * [x] `time management`: filter (before aggregator)
 
 * [x] `time management`: project filter (== ~= \=)
@@ -22,7 +24,11 @@
 * [ ] `time management`: some mechanism for transforming aggregated
                          data
 
-* [ ] `time management`: csv and json as output options
+* [x] `time management`: json output
+
+* [ ] `time management`: csv output
+
+* [ ] `time management`: cli option for output
 
 * [ ] offer generator
 

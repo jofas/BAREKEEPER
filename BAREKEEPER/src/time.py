@@ -1,4 +1,6 @@
 import functools
+import json
+from datetime import datetime
 from dateutil import parser as dateparser
 
 
@@ -48,3 +50,16 @@ class Aggregator:
                 d[k] = Aggregator([e])
 
         return d
+
+    def to_json(self):
+        return json.dumps(self, default=self.__serialize_json, indent=2)
+
+    def __serialize_json(self, o):
+        if isinstance(o, list):
+            return o
+        elif isinstance(o, Aggregator):
+            return o.entries
+        elif isinstance(o, datetime):
+            return  "{:04d}-{:02d}-{:02d}".format(o.year, o.month, o.day)
+        else:
+            return o.__dict__
