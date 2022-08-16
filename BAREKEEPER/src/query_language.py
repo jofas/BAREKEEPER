@@ -40,9 +40,9 @@ def parse(s):
 class __QueryTreeGenerator(Transformer):
     def query(self, q):
         if len(q) == 1:
-            return q
+            return q[0]
 
-        [lhs], op, [rhs] = q
+        lhs, op, rhs = q
 
         if op == "or":
             return Or(lhs, rhs)
@@ -84,7 +84,7 @@ class __QueryTreeGenerator(Transformer):
 
 
 class Op:
-    def apply(self, _):
+    def __call__(self, _):
         return False
 
 
@@ -96,7 +96,7 @@ class StrExactEq(Op):
     def __init__(self, s):
         self.s = s
 
-    def apply(self, s):
+    def __call__(self, s):
         return s == self.s
 
     def __repr__(self):
@@ -107,7 +107,7 @@ class StrRegexEq(Op):
     def __init__(self, s):
         self.re = re.compile(s)
 
-    def apply(self, s):
+    def __call__(self, s):
         return self.re.match(s) is not None
 
     def __repr__(self):
@@ -118,7 +118,7 @@ class StrPrefixEq(Op):
     def __init__(self, s):
         self.s = s
 
-    def apply(self, s):
+    def __call__(self, s):
         return s.startswith(self.s)
 
     def __repr__(self):
@@ -130,8 +130,8 @@ class And(LogicalOp):
         self.lhs = lhs
         self.rhs = rhs
 
-    def apply(self, entry):
-        return self.lhs.apply(entry) and self.rhs.apply(entry)
+    def __call__(self, entry):
+        return self.lhs(entry) and self.rhs(entry)
 
     def __repr__(self):
         return "{} and {}".format(self.lhs, self.rhs)
@@ -142,8 +142,8 @@ class Or(LogicalOp):
         self.lhs = lhs
         self.rhs = rhs
 
-    def apply(self, entry):
-        return self.lhs.apply(entry) or self.rhs.apply(entry)
+    def __call__(self, entry):
+        return self.lhs(entry) or self.rhs(entry)
 
     def __repr__(self):
         return "{} or {}".format(self.lhs, self.rhs)
@@ -153,8 +153,8 @@ class Brackets(Op):
     def __init__(self, inner):
         self.inner = inner
 
-    def apply(self, entry):
-        return self.inner.apply(entry)
+    def __call__(self, entry):
+        return self.inner(entry)
 
     def __repr__(self):
         return "({})".format(self.inner)
@@ -164,8 +164,8 @@ class ProjectQuery(Op):
     def __init__(self, op):
         self.op = op
 
-    def apply(self, entry):
-        return self.op.apply(entry.project)
+    def __call__(self, entry):
+        return self.op(entry.project)
 
     def __repr__(self):
         return "p {}".format(self.op)

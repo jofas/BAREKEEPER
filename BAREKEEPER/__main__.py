@@ -15,14 +15,12 @@ class BAREKEEPER:
             with open(filename) as file:
                 self.stream = file.read()
 
-    def time(self, aggregations=[]):
+    def time(self, filter=None, aggregations=[]):
         entries = [TimeEntry(**e) for e in json.loads(self.stream)]
 
-        q = ql.parse(
-            "p == \"carpolice\" AND (p ~= \"personal\" OR \"car\".=p)",
-        )
-
-        print(q)
+        if filter is not None:
+            q = ql.parse(filter)
+            entries = [e for e in entries if q(e)]
 
         a = Aggregator(entries)
 

@@ -13,13 +13,11 @@
 
 * [ ] `time management`: aggregator `project[*]`
 
-* [ ] `time management`: filter (before aggregator)
+* [x] `time management`: filter (before aggregator)
 
-* [ ] `time management`: project filter (== ~= \=)
+* [x] `time management`: project filter (== ~= \=)
 
 * [ ] `time management`: date filter (y, m, d, ym, ymd)
-
-* [ ] `time management`: filter operations: equal, between
 
 * [ ] offer generator
 
