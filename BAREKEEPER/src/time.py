@@ -31,9 +31,11 @@ class Aggregator:
 
     def sum_hours(self):
         if isinstance(self.entries, list):
-            self.entries = functools.reduce(
-                lambda acc, e: acc + e.hours, self.entries, 0
-            )
+            self.entries = {
+                "hours": functools.reduce(
+                    lambda acc, e: acc + e.hours, self.entries, 0
+                ),
+            }
         else:
             for v in self.entries.values():
                 v.sum_hours()

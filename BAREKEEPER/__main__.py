@@ -24,13 +24,15 @@ class BAREKEEPER:
 
         a = Aggregator(entries)
 
-        for aggregation in aggregations:
+        for aggregation in dict.fromkeys(aggregations):
+            # TODO: set title
             if aggregation == "project":
                 a.aggregate(lambda e: e.project)
             elif aggregation == "month":
                 a.aggregate(lambda e: e.date.month)
             elif aggregation == "year":
                 a.aggregate(lambda e: e.date.year)
+            # TODO: day
             else:
                 raise Exception("unknown aggregation: {}".format(aggregation))
 
