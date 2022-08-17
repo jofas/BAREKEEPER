@@ -37,7 +37,7 @@ class BAREKEEPER:
         else:
             t = importlib.import_module(transformer)
 
-        # TODO: implement grouping function
+        # TODO: make api as simple as possible
 
         # TODO: handle case where no grouping is applied as graceful as
         #       possible
@@ -52,10 +52,6 @@ class BAREKEEPER:
             for k, entries in g.groups():
                 g[k] = t.execute(entries)
 
-            # TODO: csv output
-            #
-            # TODO: I got titles for the key, now what?
-            #
             g.as_csv(sys.stdout)
         else:
             entries = t.execute(entries)
