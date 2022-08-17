@@ -1,7 +1,69 @@
 import src.query_language as ql
 from src.time import TimeEntry
 
-# TODO: test brackets, lops, variable case in
+
+def test_lops_and():
+    q = ql.parse('p == "private" AND d == 2022-08-16')
+
+    e = TimeEntry("private", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("work", 1, "2022-08-16")
+    assert not q(e)
+
+    e = TimeEntry("private", 1, "2022-08-17")
+    assert not q(e)
+
+    e = TimeEntry("work", 1, "2022-08-17")
+    assert not q(e)
+
+
+def test_lops_or():
+    q = ql.parse('p == "private" OR d == 2022-08-16')
+
+    e = TimeEntry("private", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("work", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("private", 1, "2022-08-17")
+    assert q(e)
+
+    e = TimeEntry("work", 1, "2022-08-17")
+    assert not q(e)
+
+
+def test_no_brackets():
+    q = ql.parse('p == "private" AND d == 2022-08-16 OR d == 2022-08-17')
+
+    e = TimeEntry("private", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("work", 1, "2022-08-16")
+    assert not q(e)
+
+    e = TimeEntry("private", 1, "2022-08-17")
+    assert q(e)
+
+    e = TimeEntry("work", 1, "2022-08-17")
+    assert q(e)
+
+
+def test_brackets():
+    q = ql.parse('(p == "private" AND d == 2022-08-16) OR d == 2022-08-17')
+
+    e = TimeEntry("private", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("work", 1, "2022-08-16")
+    assert not q(e)
+
+    e = TimeEntry("private", 1, "2022-08-15")
+    assert not q(e)
+
+    e = TimeEntry("work", 1, "2022-08-17")
+    assert q(e)
 
 
 def test_project_eq():

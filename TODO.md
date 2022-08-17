@@ -21,7 +21,7 @@
 
 * [x] `time management`: date filter (d.d, d.m, d.y, d)
 
-* [ ] `time managemnt`: ql: test case insensitivity (Lops + variables)
+* [x] `time managemnt`: ql: test Lops, brackets
 
 * [ ] `time management`: aggregate by weekday, month name
 
