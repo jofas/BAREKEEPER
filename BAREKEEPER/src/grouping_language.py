@@ -3,7 +3,9 @@ from lark import Lark, Transformer
 from .util import fmt_date
 
 __GL = Lark("""
-    grouping: var ("," var)* [","]
+    grouping: overridden_title ("," overridden_title)* [","]
+
+    overridden_title: var ["=" ESCAPED_STRING]
 
     var: project | DATE | YEAR | MONTH | DAY
 
@@ -17,6 +19,7 @@ __GL = Lark("""
     DAY: "d.d"i
 
     %import common.INT
+    %import common.ESCAPED_STRING
     %import common.WS
     %ignore WS
 """, start="grouping")
@@ -28,7 +31,16 @@ def parse(s):
 
 class __GroupingGenerator(Transformer):
     def grouping(self, g):
-        return Grouping(g)
+        titles, ops = zip(*g)
+        return Grouping(titles, ops)
+
+    def overridden_title(self, ot):
+        var, title = ot
+
+        if title is not None:
+            return (title, var[1])
+        else:
+            return var
 
     def var(self, v):
         return v[0]
@@ -37,28 +49,35 @@ class __GroupingGenerator(Transformer):
         [depth] = p
 
         if depth is None:
-            return lambda e: e.project
+            return "project", lambda e: e.project
         else:
-            return lambda e: ".".join(e.project.split(".")[:depth])
+            return (
+                "project",
+                lambda e: ".".join(e.project.split(".")[:depth])
+            )
 
     def DATE(self, d):
-        return lambda e: fmt_date(e.date)
+        return "date", lambda e: fmt_date(e.date)
 
     def YEAR(self, y):
-        return lambda e: e.date.year
+        return "year", lambda e: e.date.year
 
     def MONTH(self, m):
-        return lambda e: e.date.month
+        return "month", lambda e: e.date.month
 
     def DAY(self, d):
-        return lambda e: e.date.day
+        return "day", lambda e: e.date.day
 
     def DEPTH(self, d):
         return None if d == "*" else int(d)
 
+    def ESCAPED_STRING(self, s):
+        return s[1:-1]
+
 
 class Grouping:
-    def __init__(self, ops):
+    def __init__(self, titles, ops):
+        self.titles = titles
         self.ops = ops
 
     def __call__(self, entry):

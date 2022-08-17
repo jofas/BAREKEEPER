@@ -40,3 +40,13 @@ def test_depth_4():
     e = TimeEntry("private.confidential", 1, "2022-08-16")
 
     assert g(e) == ("",)
+
+
+def test_default_titles():
+    g = gl.parse("p,d,d.y,D.M,d.D")
+    assert g.titles == ("project", "date", "year", "month", "day")
+
+
+def test_overridden_titles():
+    g = gl.parse('p[1]="key0",d.y="key1"')
+    assert g.titles == ("key0", "key1")

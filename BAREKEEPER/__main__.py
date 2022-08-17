@@ -32,6 +32,8 @@ from src.util import fmt_date
 
 
 class Grouping:
+    # TODO: handle case where no grouping is applied as graceful as
+    #       possible
     def __init__(self, entries, apply=lambda _: ''):
         self.grouping = {}
 
@@ -61,7 +63,7 @@ class BAREKEEPER:
             with open(filename) as file:
                 self.stream = file.read()
 
-    def time(self, filter=None, group_by=[], transformer="tf.no_tf"):
+    def time(self, filter=None, group_by=None, transformer="tf.no_tf"):
         entries = [TimeEntry(**e) for e in json.loads(self.stream)]
 
         if filter is not None:
@@ -78,13 +80,20 @@ class BAREKEEPER:
             t = importlib.import_module(transformer)
 
         # TODO: implement grouping function
-        g = Grouping(entries)
 
-        for k, entries in g.groups():
-            g[k] = t.execute(entries)
+        if group_by is not None:
+            g = Grouping(entries)
 
-        # TODO: either json or csv output
-        print(g)
+            for k, entries in g.groups():
+                g[k] = t.execute(entries)
+
+            # TODO: either json or csv output
+            #
+            # TODO: I got titles for the key, now what?
+            #
+            print(g)
+        else:
+            entries = t.execute(entries)
 
         """
         a = Aggregator(entries)
