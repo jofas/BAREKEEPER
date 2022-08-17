@@ -19,9 +19,9 @@
 
 * [x] `time management`: >, >=, <, <=, ==
 
-* [ ] `time management`: date filter (d.d, d.m, d.y, d)
+* [x] `time management`: date filter (d.d, d.m, d.y, d)
 
-* [ ] `time managemnt`: ql: test case insensitivity
+* [ ] `time managemnt`: ql: test case insensitivity (Lops + variables)
 
 * [ ] `time management`: aggregate by weekday, month name
 
