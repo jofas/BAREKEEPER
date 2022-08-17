@@ -1,6 +1,9 @@
 import json
 import sys
 from datetime import datetime
+import importlib
+import importlib.util
+import os
 
 import fire
 
@@ -17,13 +20,25 @@ class BAREKEEPER:
             with open(filename) as file:
                 self.stream = file.read()
 
-    def time(self, filter=None, aggregations=[]):
+    def time(self, filter=None, aggregations=[], transformer="tf.no_tf"):
         entries = [TimeEntry(**e) for e in json.loads(self.stream)]
 
         if filter is not None:
             q = ql.parse(filter)
             entries = [e for e in entries if q(e)]
 
+        if os.path.isfile(transformer):
+            spec = importlib.util.spec_from_file_location(
+                "tf.custom", transformer,
+            )
+            t = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(t)
+        else:
+            t = importlib.import_module(transformer)
+
+        print(t.execute(entries))
+
+        """
         a = Aggregator(entries)
 
         for aggregation in dict.fromkeys(aggregations):
@@ -45,6 +60,7 @@ class BAREKEEPER:
         a.sum_hours()
 
         print(a.to_json())
+        """
 
 
 if __name__ == "__main__":

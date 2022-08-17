@@ -21,13 +21,19 @@
 
 * [x] `time management`: date filter (d.d, d.m, d.y, d)
 
-* [x] `time managemnt`: ql: test Lops, brackets
+* [x] `time management`: ql: test Lops, brackets
+
+* [x] `time management`: filtering
+
+* [x] `time management`: transformation interface
+
+* [ ] `time management`: export interface (json/csv)
+
+* [ ] `time management`: grouping (aggregation)
 
 * [ ] `time management`: aggregate by weekday, month name
 
 * [ ] `time management`: better aggregation interface
-
-* [ ] `time management`: transformation interface
 
 * [ ] `time management`: aggregator `p[*]`
 
