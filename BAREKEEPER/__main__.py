@@ -32,7 +32,7 @@ from src.util import fmt_date
 
 
 class Grouping:
-    def __init__(self, apply, entries):
+    def __init__(self, entries, apply=lambda _: ''):
         self.grouping = {}
 
         for e in entries:
@@ -78,7 +78,7 @@ class BAREKEEPER:
             t = importlib.import_module(transformer)
 
         # TODO: implement grouping function
-        g = Grouping(lambda _: (1,), entries)
+        g = Grouping(entries)
 
         for k, entries in g.groups():
             g[k] = t.execute(entries)

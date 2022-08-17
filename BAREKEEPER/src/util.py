@@ -1,4 +1,2 @@
-# TODO: always show day
-def fmt_date(datetime, day=True):
-    ym = "{:04d}-{:02d}".format(datetime.year, datetime.month)
-    return "{}-{:02d}".format(ym, datetime.day) if day else ym
+def fmt_date(dt):
+    return "{:04d}-{:02d}-{:02d}".format(dt.year, dt.month, dt.day)
