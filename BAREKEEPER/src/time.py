@@ -7,12 +7,10 @@ from .util import fmt_date
 
 
 class TimeEntry:
-    def __init__(self, project, hours, date=None, description=None):
+    def __init__(self, project, hours, date, description=None):
         self.hours = hours
         self.project = project
-
-        self.date = dateparser.isoparse(date) if date is not None else None
-
+        self.date = dateparser.isoparse(date)
         self.description = description
 
     def __repr__(self):

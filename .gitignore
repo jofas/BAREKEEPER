@@ -6,5 +6,5 @@ recipients.libsonnet
 hours.jsonnet
 
 build/
-
+.coverage
 __pycache__/

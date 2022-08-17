@@ -17,14 +17,13 @@
 
 * [x] `time management`: project filter (== ~= \=)
 
-* [ ] aggregate by weekday, month name
-
-* [ ] >, >=, <, <=, ==
-
-* [ ] `d.d == 5`, `d.d == "Mon"`, `d.m > 9`, `d.m >= "Oct",  
-  `d.y > 2020`, `d == "2020-05-12"`
+* [x] `time management`: >, >=, <, <=, ==
 
 * [ ] `time management`: date filter (d.d, d.m, d.y, d)
+
+* [ ] `time managemnt`: ql: test case insensitivity
+
+* [ ] `time management`: aggregate by weekday, month name
 
 * [ ] `time management`: better aggregation interface
 
