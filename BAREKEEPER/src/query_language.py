@@ -25,9 +25,9 @@ __QL = Lark("""
               | INT CMP_OPS YEAR
 
     month_query: MONTH CMP_OPS INT
-             | INT CMP_OPS MONTH
-             | MONTH CMP_OPS MONTH_NAME
-             | MONTH_NAME CMP_OPS MONTH
+              | INT CMP_OPS MONTH
+              | MONTH CMP_OPS MONTH_NAME
+              | MONTH_NAME CMP_OPS MONTH
 
     day_query: DAY CMP_OPS INT
              | INT CMP_OPS DAY
@@ -61,7 +61,7 @@ __QL = Lark("""
     DATE_LIT: INT "-" INT "-" INT
 
     WEEKDAY: "mon"i | "tue"i | "wed"i | "thu"i | "fri"i | "sat"i | "sun"i
-    MONTH_NAME: "jan"i | "feb"i | "mar"i | "apr"i | "may"i | "jun"i | "jul"i | "oct"i | "nov"i | "dez"i
+    MONTH_NAME: "jan"i | "feb"i | "mar"i | "apr"i | "may"i | "jun"i | "jul"i | "aug"i | "oct"i | "nov"i | "dez"i
 
     PROJECT: "p"
 
@@ -150,7 +150,23 @@ class __QueryTreeGenerator(Transformer):
             raise Exception("unrecognized operation:", op)
 
     def month_query(self, mq):
-        pass
+        lhs, op, rhs = mq
+
+        m = rhs if lhs == "month" else lhs
+        m = int(m)
+
+        if op == "==":
+            return MonthQuery(Eq(m))
+        elif op == ">=":
+            return MonthQuery(Geq(m))
+        elif op == ">":
+            return MonthQuery(Gr(m))
+        elif op == "<=":
+            return MonthQuery(Leq(m))
+        elif op == "<":
+            return MonthQuery(Le(m))
+        else:
+            raise Exception("unrecognized operation:", op)
 
     def day_query(self, dq):
         pass
@@ -187,8 +203,37 @@ class __QueryTreeGenerator(Transformer):
     def ESCAPED_STRING(self, s):
         return s.value[1:-1]
 
+    def MONTH_NAME(self, mn):
+        mn = mn.value.lower()
+
+        if mn == "jan":
+            return 1
+        elif mn == "feb":
+            return 2
+        elif mn == "mar":
+            return 3
+        elif mn == "apr":
+            return 4
+        elif mn == "may":
+            return 5
+        elif mn == "jun":
+            return 6
+        elif mn == "jul":
+            return 7
+        elif mn == "aug":
+            return 8
+        elif mn == "sep":
+            return 9
+        elif mn == "oct":
+            return 10
+        elif mn == "nov":
+            return 11
+        elif mn == "dez":
+            return 12
+        else:
+            raise Exception("unrecognized month name:", mn)
+
     # TODO: weekday -> 1 .. 7
-    # TODO: month_name -> 1 .. 12
 
 
 class Op:

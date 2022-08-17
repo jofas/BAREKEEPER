@@ -130,3 +130,93 @@ def test_year_le():
 
     e = TimeEntry("", 1, "2022-08-16")
     assert not q(e)
+
+
+def test_month_eq():
+    q = ql.parse('d.m == 8')
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-07-16")
+    assert not q(e)
+
+
+def test_month_geq():
+    q = ql.parse('d.m >= 8')
+
+    e = TimeEntry("", 1, "2022-09-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-07-16")
+    assert not q(e)
+
+
+def test_month_gr():
+    q = ql.parse('d.m > 8')
+
+    e = TimeEntry("", 1, "2023-09-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
+
+
+def test_month_leq():
+    q = ql.parse('d.m <= 8')
+
+    e = TimeEntry("", 1, "2023-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-09-16")
+    assert not q(e)
+
+
+def test_month_le():
+    q = ql.parse('d.m < 8')
+
+    e = TimeEntry("", 1, "2021-07-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
+
+
+def test_month_geq_abbr():
+    q = ql.parse('d.m >= aug')
+
+    e = TimeEntry("", 1, "2022-09-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-07-16")
+    assert not q(e)
+
+
+def test_month_gr_abbr():
+    q = ql.parse('d.m > Aug')
+
+    e = TimeEntry("", 1, "2023-09-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
+
+
+def test_month_leq_abbr():
+    q = ql.parse('d.m <= aUG')
+
+    e = TimeEntry("", 1, "2023-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-09-16")
+    assert not q(e)
+
+
+def test_month_le_abbr():
+    q = ql.parse('d.m < AUG')
+
+    e = TimeEntry("", 1, "2021-07-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
