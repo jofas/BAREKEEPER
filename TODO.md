@@ -27,9 +27,9 @@
 
 * [x] `time management`: transformation interface
 
-* [ ] `time management`: export interface (json/csv)
-
 * [ ] `time management`: grouping (aggregation)
+
+* [ ] `time management`: export interface (json/csv)
 
 * [ ] `time management`: aggregate by weekday, month name
 

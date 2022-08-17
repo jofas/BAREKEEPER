@@ -12,6 +12,47 @@ import src.query_language as ql
 from src.util import fmt_date
 
 
+# [group1, group2, group3]
+#
+# grouping(entry) -> (group1, group2, group3)
+#
+
+#
+# dictionary for each group
+# for each group, intersect with other groups
+#
+# 1. create dict for each group
+# 2. recursively intersect dictionaries and save a list of groups
+#
+# ... how to create a dict from groups? TUPLES!
+# recursively
+#
+# ... pandas???
+#
+
+
+class Grouping:
+    def __init__(self, apply, entries):
+        self.grouping = {}
+
+        for e in entries:
+            key = apply(e)
+
+            if key in self.grouping:
+                self.grouping[key].append(e)
+            else:
+                self.grouping[key] = [e]
+
+    def groups(self):
+        return self.grouping.items()
+
+    def __repr__(self):
+        return str(self.grouping)
+
+    def __setitem__(self, k, v):
+        self.grouping[k] = v
+
+
 class BAREKEEPER:
     def __init__(self, filename="-"):
         if filename == "-":
@@ -20,7 +61,7 @@ class BAREKEEPER:
             with open(filename) as file:
                 self.stream = file.read()
 
-    def time(self, filter=None, aggregations=[], transformer="tf.no_tf"):
+    def time(self, filter=None, group_by=[], transformer="tf.no_tf"):
         entries = [TimeEntry(**e) for e in json.loads(self.stream)]
 
         if filter is not None:
@@ -36,7 +77,14 @@ class BAREKEEPER:
         else:
             t = importlib.import_module(transformer)
 
-        print(t.execute(entries))
+        # TODO: implement grouping function
+        g = Grouping(lambda _: (1,), entries)
+
+        for k, entries in g.groups():
+            g[k] = t.execute(entries)
+
+        # TODO: either json or csv output
+        print(g)
 
         """
         a = Aggregator(entries)
