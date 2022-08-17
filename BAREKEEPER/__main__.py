@@ -42,6 +42,9 @@ class BAREKEEPER:
         # TODO: handle case where no grouping is applied as graceful as
         #       possible
         if group_by is not None:
+            if isinstance(group_by, tuple):
+                group_by = ",".join(group_by)
+
             apply_grouping = gl.parse(group_by)
 
             g = gl.Grouping(entries, apply_grouping)
@@ -53,7 +56,7 @@ class BAREKEEPER:
             #
             # TODO: I got titles for the key, now what?
             #
-            print(g)
+            g.as_csv(sys.stdout)
         else:
             entries = t.execute(entries)
 

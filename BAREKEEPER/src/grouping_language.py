@@ -1,3 +1,5 @@
+import csv
+
 from lark import Lark, Transformer
 
 from .util import fmt_date
@@ -87,6 +89,7 @@ class ApplyGrouping:
 class Grouping:
     def __init__(self, entries, apply):
         self.grouping = {}
+        self.key_titles = apply.titles
 
         for e in entries:
             key = apply(e)
@@ -105,9 +108,24 @@ class Grouping:
     def __setitem__(self, k, v):
         self.grouping[k] = v
 
-    def as_csv(self):
-        # TODO
-        #
-        # construct a list of records
-        #
-        return ""
+    def as_csv(self, stream):
+        records = []
+
+        for k, v in self.groups():
+            if isinstance(v, list):
+                for v in v:
+                    records.append(self.__create_record(k, v.__dict__))
+            elif isinstance(v, dict):
+                records.append(self.__create_record(k, v))
+            else:
+                records.append(self.__create_record(k, v.__dict__))
+
+        writer = csv.DictWriter(stream, records[0].keys())
+
+        writer.writeheader()
+        writer.writerows(records)
+
+    def __create_record(self, k, v):
+        record = {l: w for l, w in zip(self.key_titles, k)}
+        record.update(v)
+        return record
