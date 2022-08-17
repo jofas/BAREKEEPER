@@ -32,7 +32,7 @@ def parse(s):
 class __GroupingGenerator(Transformer):
     def grouping(self, g):
         titles, ops = zip(*g)
-        return Grouping(titles, ops)
+        return ApplyGrouping(titles, ops)
 
     def overridden_title(self, ot):
         var, title = ot
@@ -75,10 +75,39 @@ class __GroupingGenerator(Transformer):
         return s[1:-1]
 
 
-class Grouping:
+class ApplyGrouping:
     def __init__(self, titles, ops):
         self.titles = titles
         self.ops = ops
 
     def __call__(self, entry):
         return tuple(map(lambda f: f(entry), self.ops))
+
+
+class Grouping:
+    def __init__(self, entries, apply):
+        self.grouping = {}
+
+        for e in entries:
+            key = apply(e)
+
+            if key in self.grouping:
+                self.grouping[key].append(e)
+            else:
+                self.grouping[key] = [e]
+
+    def groups(self):
+        return self.grouping.items()
+
+    def __repr__(self):
+        return str(self.grouping)
+
+    def __setitem__(self, k, v):
+        self.grouping[k] = v
+
+    def as_csv(self):
+        # TODO
+        #
+        # construct a list of records
+        #
+        return ""

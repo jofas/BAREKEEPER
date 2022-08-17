@@ -9,50 +9,8 @@ import fire
 
 from src.time import TimeEntry, Aggregator
 import src.query_language as ql
+import src.grouping_language as gl
 from src.util import fmt_date
-
-
-# [group1, group2, group3]
-#
-# grouping(entry) -> (group1, group2, group3)
-#
-
-#
-# dictionary for each group
-# for each group, intersect with other groups
-#
-# 1. create dict for each group
-# 2. recursively intersect dictionaries and save a list of groups
-#
-# ... how to create a dict from groups? TUPLES!
-# recursively
-#
-# ... pandas???
-#
-
-
-class Grouping:
-    # TODO: handle case where no grouping is applied as graceful as
-    #       possible
-    def __init__(self, entries, apply=lambda _: ''):
-        self.grouping = {}
-
-        for e in entries:
-            key = apply(e)
-
-            if key in self.grouping:
-                self.grouping[key].append(e)
-            else:
-                self.grouping[key] = [e]
-
-    def groups(self):
-        return self.grouping.items()
-
-    def __repr__(self):
-        return str(self.grouping)
-
-    def __setitem__(self, k, v):
-        self.grouping[k] = v
 
 
 class BAREKEEPER:
@@ -81,13 +39,17 @@ class BAREKEEPER:
 
         # TODO: implement grouping function
 
+        # TODO: handle case where no grouping is applied as graceful as
+        #       possible
         if group_by is not None:
-            g = Grouping(entries)
+            apply_grouping = gl.parse(group_by)
+
+            g = gl.Grouping(entries, apply_grouping)
 
             for k, entries in g.groups():
                 g[k] = t.execute(entries)
 
-            # TODO: either json or csv output
+            # TODO: csv output
             #
             # TODO: I got titles for the key, now what?
             #
