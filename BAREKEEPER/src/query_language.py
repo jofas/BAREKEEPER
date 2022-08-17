@@ -67,12 +67,12 @@ __QL = Lark("""
     WEEKDAY: "mon"i | "tue"i | "wed"i | "thu"i | "fri"i | "sat"i | "sun"i
     MONTH_NAME: "jan"i | "feb"i | "mar"i | "apr"i | "may"i | "jun"i | "jul"i | "aug"i | "oct"i | "nov"i | "dez"i
 
-    PROJECT: "p"
+    PROJECT: "p"i
 
-    DATE: "d"
-    YEAR: "d.y"
-    MONTH: "d.m"
-    DAY: "d.d"
+    DATE: "d"i
+    YEAR: "d.y"i
+    MONTH: "d.m"i
+    DAY: "d.d"i
 
     %import common.INT
     %import common.ESCAPED_STRING

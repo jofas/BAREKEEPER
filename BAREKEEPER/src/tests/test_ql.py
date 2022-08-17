@@ -1,6 +1,8 @@
 import src.query_language as ql
 from src.time import TimeEntry
 
+# TODO: test brackets, lops, variable case in
+
 
 def test_project_eq():
     q = ql.parse('p == "private"')
@@ -13,7 +15,7 @@ def test_project_eq():
 
 
 def test_project_regex_eq():
-    q = ql.parse('p ~= "p.*"')
+    q = ql.parse('P ~= "p.*"')
 
     e = TimeEntry("private", 1, "2022-08-16")
     assert q(e)
@@ -53,7 +55,7 @@ def test_date_geq():
 
 
 def test_date_gr():
-    q = ql.parse('d > 2022-8-8')
+    q = ql.parse('D > 2022-8-8')
 
     e = TimeEntry("", 1, "2022-08-09")
     assert q(e)
@@ -83,7 +85,7 @@ def test_date_le():
 
 
 def test_year_eq():
-    q = ql.parse('d.y == 2022')
+    q = ql.parse('D.y == 2022')
 
     e = TimeEntry("", 1, "2022-08-16")
     assert q(e)
@@ -93,7 +95,7 @@ def test_year_eq():
 
 
 def test_year_geq():
-    q = ql.parse('d.y >= 2022')
+    q = ql.parse('d.Y >= 2022')
 
     e = TimeEntry("", 1, "2022-08-16")
     assert q(e)
@@ -103,7 +105,7 @@ def test_year_geq():
 
 
 def test_year_gr():
-    q = ql.parse('d.y > 2022')
+    q = ql.parse('D.Y > 2022')
 
     e = TimeEntry("", 1, "2023-08-16")
     assert q(e)
@@ -133,7 +135,7 @@ def test_year_le():
 
 
 def test_month_eq():
-    q = ql.parse('d.m == 8')
+    q = ql.parse('D.m == 8')
 
     e = TimeEntry("", 1, "2022-08-16")
     assert q(e)
@@ -143,7 +145,7 @@ def test_month_eq():
 
 
 def test_month_geq():
-    q = ql.parse('d.m >= 8')
+    q = ql.parse('d.M >= 8')
 
     e = TimeEntry("", 1, "2022-09-16")
     assert q(e)
@@ -153,7 +155,7 @@ def test_month_geq():
 
 
 def test_month_gr():
-    q = ql.parse('d.m > 8')
+    q = ql.parse('D.M > 8')
 
     e = TimeEntry("", 1, "2023-09-16")
     assert q(e)
@@ -223,7 +225,7 @@ def test_month_le_abbr():
 
 
 def test_day_eq():
-    q = ql.parse('d.d == 16')
+    q = ql.parse('D.d == 16')
 
     e = TimeEntry("", 1, "2022-08-16")
     assert q(e)
@@ -233,7 +235,7 @@ def test_day_eq():
 
 
 def test_day_geq():
-    q = ql.parse('d.d >= 16')
+    q = ql.parse('d.D >= 16')
 
     e = TimeEntry("", 1, "2022-09-16")
     assert q(e)
@@ -243,7 +245,7 @@ def test_day_geq():
 
 
 def test_day_gr():
-    q = ql.parse('d.d > 16')
+    q = ql.parse('D.D > 16')
 
     e = TimeEntry("", 1, "2023-09-17")
     assert q(e)
