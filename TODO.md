@@ -27,24 +27,11 @@
 
 * [x] `time management`: transformation interface
 
-* [ ] `time management`: grouping (aggregation)
+* [ ] `time management`: grouping
 
-* [ ] `time management`: export interface (json/csv)
-
-* [ ] `time management`: aggregate by weekday, month name
-
-* [ ] `time management`: better aggregation interface
-
-* [ ] `time management`: aggregator `p[*]`
-
-* [ ] `time management`: some mechanism for transforming aggregated
-  data
-
-* [x] `time management`: json output
+* [ ] `time management`: group by weekday
 
 * [ ] `time management`: csv output
-
-* [ ] `time management`: cli option for output
 
 * [ ] offer generator
 
