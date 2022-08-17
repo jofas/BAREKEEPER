@@ -220,3 +220,128 @@ def test_month_le_abbr():
 
     e = TimeEntry("", 1, "2022-08-16")
     assert not q(e)
+
+
+def test_day_eq():
+    q = ql.parse('d.d == 16')
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-17")
+    assert not q(e)
+
+
+def test_day_geq():
+    q = ql.parse('d.d >= 16')
+
+    e = TimeEntry("", 1, "2022-09-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-07-15")
+    assert not q(e)
+
+
+def test_day_gr():
+    q = ql.parse('d.d > 16')
+
+    e = TimeEntry("", 1, "2023-09-17")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
+
+
+def test_day_leq():
+    q = ql.parse('d.d <= 16')
+
+    e = TimeEntry("", 1, "2023-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-09-17")
+    assert not q(e)
+
+
+def test_day_le():
+    q = ql.parse('d.d < 16')
+
+    e = TimeEntry("", 1, "2021-07-15")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
+
+
+"""
+Tests the equality operator (==) for the weekday of a date.
+"""
+
+
+def test_weekday_eq():
+    q = ql.parse('d.d == tue')
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-17")
+    assert not q(e)
+
+
+"""
+Tests the greater-equal operator (>=) for the weekday of a date.
+"""
+
+
+def test_weekday_geq():
+    q = ql.parse('d.d >= tue')
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-15")
+    assert not q(e)
+
+
+"""
+Tests the greater-than operator (>) for the weekday of a date.
+"""
+
+
+def test_weekday_gr():
+    q = ql.parse('d.d > Tue')
+
+    e = TimeEntry("", 1, "2022-08-17")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)
+
+
+"""
+Tests the less-equal operator (<=) for the weekday of a date.
+"""
+
+
+def test_weekday_leq():
+    q = ql.parse('d.d <= TuE')
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-17")
+    assert not q(e)
+
+
+"""
+Tests the less-than operator (<) for the weekday of a date.
+"""
+
+
+def test_weekday_le():
+    q = ql.parse('d.d < TUE')
+
+    e = TimeEntry("", 1, "2022-08-15")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-16")
+    assert not q(e)

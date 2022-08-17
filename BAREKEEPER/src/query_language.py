@@ -1,5 +1,7 @@
 import re
 
+from enum import Enum
+
 import dateutil.parser as dateparser
 
 from lark import Lark, Transformer
@@ -12,6 +14,7 @@ __QL = Lark("""
          | year_query
          | month_query
          | day_query
+         | weekday_query
 
     query_group: "(" query ")"
 
@@ -31,8 +34,9 @@ __QL = Lark("""
 
     day_query: DAY CMP_OPS INT
              | INT CMP_OPS DAY
-             | DAY CMP_OPS WEEKDAY
-             | WEEKDAY CMP_OPS DAY
+
+    weekday_query: DAY CMP_OPS WEEKDAY
+                 | WEEKDAY CMP_OPS DAY
 
     LOGICAL_OPS: AND | OR
 
@@ -169,11 +173,44 @@ class __QueryTreeGenerator(Transformer):
             raise Exception("unrecognized operation:", op)
 
     def day_query(self, dq):
-        pass
+        lhs, op, rhs = dq
 
-    # ... maybe all ops back to rule
+        d = rhs if lhs == "day" else lhs
+        d = int(d)
+
+        if op == "==":
+            return DayQuery(Eq(d))
+        elif op == ">=":
+            return DayQuery(Geq(d))
+        elif op == ">":
+            return DayQuery(Gr(d))
+        elif op == "<=":
+            return DayQuery(Leq(d))
+        elif op == "<":
+            return DayQuery(Le(d))
+        else:
+            raise Exception("unrecognized operation:", op)
+
+    def weekday_query(self, wdq):
+        lhs, op, rhs = wdq
+
+        d = rhs if lhs == "day" else lhs
+
+        if op == "==":
+            return WeekdayQuery(Eq(d.value))
+        elif op == ">=":
+            return WeekdayQuery(Geq(d.value))
+        elif op == ">":
+            return WeekdayQuery(Gr(d.value))
+        elif op == "<=":
+            return WeekdayQuery(Leq(d.value))
+        elif op == "<":
+            return WeekdayQuery(Le(d.value))
+        else:
+            raise Exception("unrecognized operation:", op)
+
     def LOGICAL_OPS(self, op):
-        return op.value
+        return op.value.lower()
 
     def CMP_OPS(self, op):
         return op.value
@@ -233,7 +270,39 @@ class __QueryTreeGenerator(Transformer):
         else:
             raise Exception("unrecognized month name:", mn)
 
-    # TODO: weekday -> 1 .. 7
+    def WEEKDAY(self, wd):
+        return Weekday.from_str(wd.value)
+
+
+class Weekday(Enum):
+    MON = 1
+    TUE = 2
+    WED = 3
+    THU = 4
+    FRI = 5
+    SAT = 6
+    SUN = 7
+
+    @classmethod
+    def from_str(self, s):
+        s = s.lower()
+
+        if s == "mon":
+            return Weekday.MON
+        elif s == "tue":
+            return Weekday.TUE
+        elif s == "wed":
+            return Weekday.WED
+        elif s == "thu":
+            return Weekday.THU
+        elif s == "fri":
+            return Weekday.FRI
+        elif s == "sat":
+            return Weekday.SAT
+        elif s == "sun":
+            return Weekday.SUN
+        else:
+            raise Exception("unrecognized weekday name:", s)
 
 
 class Op:
@@ -401,13 +470,23 @@ class MonthQuery(Op):
         return "d.m {}".format(self.op)
 
 
-# TODO: either match int or abbreviated weekday
 class DayQuery(Op):
     def __init__(self, op):
         self.op = op
 
     def __call__(self, entry):
         return self.op(entry.date.day)
+
+    def __repr__(self):
+        return "d.d {}".format(self.op)
+
+
+class WeekdayQuery(Op):
+    def __init__(self, op):
+        self.op = op
+
+    def __call__(self, entry):
+        return self.op(entry.date.isoweekday())
 
     def __repr__(self):
         return "d.d {}".format(self.op)
