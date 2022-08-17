@@ -42,6 +42,46 @@ def test_date_eq():
     assert not q(e)
 
 
+def test_date_geq():
+    q = ql.parse('d >= 2022-8-8')
+
+    e = TimeEntry("", 1, "2022-08-11")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2021-08-16")
+    assert not q(e)
+
+
+def test_date_gr():
+    q = ql.parse('d > 2022-8-8')
+
+    e = TimeEntry("", 1, "2022-08-09")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-08")
+    assert not q(e)
+
+
+def test_date_leq():
+    q = ql.parse('d <= 2022-8-8')
+
+    e = TimeEntry("", 1, "2022-08-07")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-09")
+    assert not q(e)
+
+
+def test_date_le():
+    q = ql.parse('d < 2022-8-8')
+
+    e = TimeEntry("", 1, "2022-08-07")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2022-08-08")
+    assert not q(e)
+
+
 def test_year_eq():
     q = ql.parse('d.y == 2022')
 
