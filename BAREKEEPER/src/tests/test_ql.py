@@ -32,6 +32,16 @@ def test_project_prefix_eq():
     assert not q(e)
 
 
+def test_date_eq():
+    q = ql.parse('d == 2022-8-8')
+
+    e = TimeEntry("", 1, "2022-08-08")
+    assert q(e)
+
+    e = TimeEntry("", 1, "2021-08-16")
+    assert not q(e)
+
+
 def test_year_eq():
     q = ql.parse('d.y == 2022')
 

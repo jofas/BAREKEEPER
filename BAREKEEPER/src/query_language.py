@@ -113,21 +113,21 @@ class __QueryTreeGenerator(Transformer):
             raise Exception("unrecognized operation:", op)
 
     def date_query(self, dq):
-        lhs, op, rhs = yq
+        lhs, op, rhs = dq
 
-        d = rhs if lhs == "year" else lhs
+        d = rhs if lhs == "date" else lhs
         d = dateparser.isoparse(d)
 
         if op == "==":
-            return DateQuery(Eq(int(y)))
+            return DateQuery(Eq(d))
         elif op == ">=":
-            return DateQuery(Geq(int(y)))
+            return DateQuery(Geq(d))
         elif op == ">":
-            return DateQuery(Gr(int(y)))
+            return DateQuery(Gr(d))
         elif op == "<=":
-            return DateQuery(Leq(int(y)))
+            return DateQuery(Leq(d))
         elif op == "<":
-            return DateQuery(Le(int(y)))
+            return DateQuery(Le(d))
         else:
             raise Exception("unrecognized operation:", op)
 
@@ -179,6 +179,10 @@ class __QueryTreeGenerator(Transformer):
 
     def DAY(self, _):
         return "day"
+
+    def DATE_LIT(self, d):
+        [y, m, d] = d.value.split("-")
+        return "{:04d}-{:02d}-{:02d}".format(int(y), int(m), int(d))
 
     def ESCAPED_STRING(self, s):
         return s.value[1:-1]
