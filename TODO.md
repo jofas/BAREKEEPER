@@ -33,6 +33,8 @@
 
 * [x] `time management`: group by weekday
 
+* [ ] `time management`: `!=` operator
+
 * [ ] offer generator
 
 * [ ] cost management
