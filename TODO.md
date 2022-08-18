@@ -11,7 +11,27 @@
 
 * [ ] `JSONNET_PATH` for importing the `.libsonnet` files
 
-* [ ] time management
+* [x] `time management`: date aggregators same as date filters
+
+* [x] `time management`: filter (before aggregator)
+
+* [x] `time management`: project filter (== ~= \=)
+
+* [x] `time management`: >, >=, <, <=, ==
+
+* [x] `time management`: date filter (d.d, d.m, d.y, d)
+
+* [x] `time management`: ql: test Lops, brackets
+
+* [x] `time management`: filtering
+
+* [x] `time management`: transformation interface
+
+* [x] `time management`: grouping
+
+* [x] `time management`: csv output
+
+* [x] `time management`: group by weekday
 
 * [ ] offer generator
 

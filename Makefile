@@ -1,3 +1,9 @@
 pep8:
-	autopep8 --in-place --aggressive --aggressive invoice_generator.py
-	autopep8 --in-place --aggressive --aggressive _types.py
+	autopep8 --in-place -r --aggressive --aggressive ./
+
+test:
+	pytest
+
+coverage:
+	coverage run -m pytest
+	coverage report
