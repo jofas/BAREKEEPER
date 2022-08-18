@@ -10,6 +10,14 @@ def test_1():
     assert g(e) == ("private", "2022-08-16", 2022, 8, 16)
 
 
+def test_weekday():
+    g = gl.parse("d.wd")
+
+    e = TimeEntry("private", 1, "2022-08-16")
+
+    assert g(e) == ("tue",)
+
+
 def test_depth_1():
     g = gl.parse("p[1],")
 

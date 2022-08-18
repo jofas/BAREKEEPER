@@ -1,10 +1,10 @@
 import re
 
-from enum import Enum
-
 import dateutil.parser as dateparser
 
 from lark import Lark, Transformer
+
+from .util import Weekday
 
 __QL = Lark("""
     query: query_group
@@ -272,37 +272,6 @@ class __QueryTreeGenerator(Transformer):
 
     def WEEKDAY(self, wd):
         return Weekday.from_str(wd.value)
-
-
-class Weekday(Enum):
-    MON = 1
-    TUE = 2
-    WED = 3
-    THU = 4
-    FRI = 5
-    SAT = 6
-    SUN = 7
-
-    @classmethod
-    def from_str(self, s):
-        s = s.lower()
-
-        if s == "mon":
-            return Weekday.MON
-        elif s == "tue":
-            return Weekday.TUE
-        elif s == "wed":
-            return Weekday.WED
-        elif s == "thu":
-            return Weekday.THU
-        elif s == "fri":
-            return Weekday.FRI
-        elif s == "sat":
-            return Weekday.SAT
-        elif s == "sun":
-            return Weekday.SUN
-        else:
-            raise Exception("unrecognized weekday name:", s)
 
 
 class Op:

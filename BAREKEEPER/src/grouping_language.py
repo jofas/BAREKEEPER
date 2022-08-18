@@ -2,14 +2,14 @@ import csv
 
 from lark import Lark, Transformer
 
-from .util import fmt_date
+from .util import fmt_date, Weekday
 
 __GL = Lark("""
     grouping: overridden_title ("," overridden_title)* [","]
 
     overridden_title: var ["=" ESCAPED_STRING]
 
-    var: project | DATE | YEAR | MONTH | DAY
+    var: project | DATE | YEAR | MONTH | DAY | WEEKDAY
 
     project: "p"i ["[" DEPTH "]"]
 
@@ -19,6 +19,7 @@ __GL = Lark("""
     YEAR: "d.y"i
     MONTH: "d.m"i
     DAY: "d.d"i
+    WEEKDAY: "d.wd"i
 
     %import common.INT
     %import common.ESCAPED_STRING
@@ -58,17 +59,20 @@ class __GroupingGenerator(Transformer):
                 lambda e: ".".join(e.project.split(".")[:depth])
             )
 
-    def DATE(self, d):
+    def DATE(self, _):
         return "date", lambda e: fmt_date(e.date)
 
-    def YEAR(self, y):
+    def YEAR(self, _):
         return "year", lambda e: e.date.year
 
-    def MONTH(self, m):
+    def MONTH(self, _):
         return "month", lambda e: e.date.month
 
-    def DAY(self, d):
+    def DAY(self, _):
         return "day", lambda e: e.date.day
+
+    def WEEKDAY(self, _):
+        return "weekday", lambda e: str(Weekday(e.date.isoweekday()))
 
     def DEPTH(self, d):
         return None if d == "*" else int(d)

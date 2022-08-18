@@ -31,7 +31,7 @@
 
 * [x] `time management`: csv output
 
-* [ ] `time management`: group by weekday
+* [x] `time management`: group by weekday
 
 * [ ] offer generator
 
