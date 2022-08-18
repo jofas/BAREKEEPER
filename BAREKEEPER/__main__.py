@@ -7,7 +7,7 @@ import os
 
 import fire
 
-from src.time import TimeEntry, Aggregator
+from src.time import TimeEntry
 import src.query_language as ql
 import src.grouping_language as gl
 from src.util import fmt_date
@@ -37,48 +37,20 @@ class BAREKEEPER:
         else:
             t = importlib.import_module(transformer)
 
-        # TODO: make api as simple as possible
-
-        # TODO: handle case where no grouping is applied as graceful as
-        #       possible
         if group_by is not None:
             if isinstance(group_by, tuple):
                 group_by = ",".join(group_by)
 
             apply_grouping = gl.parse(group_by)
-
-            g = gl.Grouping(entries, apply_grouping)
-
-            for k, entries in g.groups():
-                g[k] = t.execute(entries)
-
-            g.as_csv(sys.stdout)
         else:
-            entries = t.execute(entries)
+            apply_grouping = None
 
-        """
-        a = Aggregator(entries)
+        g = gl.Grouping(entries, apply_grouping)
 
-        for aggregation in dict.fromkeys(aggregations):
-            if aggregation == "p":
-                a.aggregate(lambda e: e.project)
-            elif aggregation == "m":
-                a.aggregate(lambda e: e.date.month)
-            elif aggregation == "y":
-                a.aggregate(lambda e: e.date.year)
-            elif aggregation == "d":
-                a.aggregate(lambda e: e.date.day)
-            elif aggregation == "ym":
-                a.aggregate(lambda e: fmt_date(e.date, day=False))
-            elif aggregation == "ymd":
-                a.aggregate(lambda e: fmt_date(e.date))
-            else:
-                raise Exception("unknown aggregation: {}".format(aggregation))
+        for k, entries in g.groups():
+            g[k] = t.execute(entries)
 
-        a.sum_hours()
-
-        print(a.to_json())
-        """
+        g.as_csv(sys.stdout)
 
 
 if __name__ == "__main__":

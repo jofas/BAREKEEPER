@@ -27,11 +27,11 @@
 
 * [x] `time management`: transformation interface
 
-* [ ] `time management`: grouping
+* [x] `time management`: grouping
+
+* [x] `time management`: csv output
 
 * [ ] `time management`: group by weekday
-
-* [ ] `time management`: csv output
 
 * [ ] offer generator
 

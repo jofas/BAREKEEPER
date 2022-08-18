@@ -120,7 +120,7 @@ class __QueryTreeGenerator(Transformer):
         lhs, op, rhs = dq
 
         d = rhs if lhs == "date" else lhs
-        d = dateparser.isoparse(d)
+        d = dateparser.isoparse(d).date()
 
         if op == "==":
             return DateQuery(Eq(d))

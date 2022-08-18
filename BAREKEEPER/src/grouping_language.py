@@ -87,8 +87,12 @@ class ApplyGrouping:
 
 
 class Grouping:
-    def __init__(self, entries, apply):
+    def __init__(self, entries, apply=None):
         self.grouping = {}
+
+        if apply is None:
+            apply = ApplyGrouping((), ())
+
         self.key_titles = apply.titles
 
         for e in entries:
@@ -126,6 +130,10 @@ class Grouping:
         writer.writerows(records)
 
     def __create_record(self, k, v):
-        record = {l: w for l, w in zip(self.key_titles, k)}
+        if k != ():
+            record = {l: w for l, w in zip(self.key_titles, k)}
+        else:
+            record = {}
+
         record.update(v)
         return record
