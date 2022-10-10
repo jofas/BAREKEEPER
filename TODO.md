@@ -4,6 +4,10 @@
 
 * [x] archive `invoice_generator`
 
+* [ ] invoice: USt-IdNr (VAT no)
+
+* [ ] invoice: english version
+
 * [ ] replace `pdflatex` with `pyFPDF`
 
 * [ ] installation script (and maybe single distribution with
