@@ -28,7 +28,9 @@
   {% if recipient.name is not none %}{{ recipient.name }}\\{% endif %} %
   {{ recipient.address.street }} {{ recipient.address.house_number }} \\
   {{ recipient.address.postal_code }} {{ recipient.address.place }} \\
-  {{ recipient.address.country }}
+  {{ recipient.address.country }} \\
+  {% if recipient.VAT_no is not none %}USt-IdNr.: {{ recipient.VAT_no}}\\{% endif %} %
+  {% if recipient.meta is not none %}{{ recipient.meta}}\\{% endif %} %
 }
 
 \def\sender{

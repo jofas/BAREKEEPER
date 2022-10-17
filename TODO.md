@@ -8,9 +8,9 @@
 
 * [x] Person `VAT_no`, `meta` fields (python + jsonnet)
 
-* [ ] render `VAT_no` and `meta` in invoice + letter recipient
+* [x] render `VAT_no` and `meta` in invoice + letter recipient
 
-* [ ] add `VAT_no` of sender to footer
+* [x] add `VAT_no` of sender to footer
 
 * [ ] invoice: english version
 

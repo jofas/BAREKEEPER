@@ -11,7 +11,7 @@
     "name": null,
     "phone": "+49 1245 678910",
     "email": "test@company1.de",
-    "VAT_no": null,
+    "VAT_no": "DE XXX XXX XXX",
     "meta": null
   },
   "tax_id": "ABC/DEFG/HIJK",
@@ -34,8 +34,8 @@
     "name": null,
     "phone": null,
     "email": null,
-    "VAT_no": null,
-    "meta": null
+    "VAT_no": "DE XXX XXX XXX",
+    "meta": "Company Number /Trade License Number: X.XXX.XXX.XXX"
   },
   "entries": [
     {
