@@ -1,4 +1,4 @@
-local types = import '../types.libsonnet';
+local types = import '../jsonnet/types.libsonnet';
 
 types.Letter(
   sender=types.Person(
