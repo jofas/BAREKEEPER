@@ -1,5 +1,5 @@
 \documentclass{letter}
-\usepackage[german]{babel}
+\usepackage[english]{babel}
 \usepackage{tabu}
 \usepackage{datetime}
 \usepackage[colorlinks=true, urlcolor=black]{hyperref} % Links
@@ -38,20 +38,24 @@
     &IBAN:
     &{{ payment_details.iban }} \\
   {{ sender.address.postal_code }} {{sender.address.place }}
-   &
-   &tIN:
-   &{{ tax_id }}
-   &
-   &BIC:
-   &{{ payment_details.bic }} \\
+    &
+    &tIN:
+    &{{ tax_id }}
+    &
+    &BIC:
+    &{{ payment_details.bic }} \\
 
+  {{ sender.address.country }}
+    &
   {% if sender.VAT_no is not none %} %
-   &
-   &VAT no.:
-   &{{ sender.VAT_no }}
-   &
-   & \\
+    &VAT no.:
+    &{{ sender.VAT_no }}
+  {% else %} %
+    &
+    &
   {% endif %} %
+    &
+    & \\
   \end{tabu}
 }
 
@@ -69,7 +73,7 @@
   {{ recipient.address.street }} {{ recipient.address.house_number }} \\
   {{ recipient.address.postal_code }} {{ recipient.address.place }} \\
   {{ recipient.address.country }} \\
-  {% if recipient.VAT_no is not none %}USt-IdNr.: {{ recipient.VAT_no}}\\{% endif %} %
+  {% if recipient.VAT_no is not none %}VAT no.: {{ recipient.VAT_no}}\\{% endif %} %
   {% if recipient.meta is not none %}{{ recipient.meta}}\\{% endif %} %
 }
 
@@ -123,4 +127,6 @@
     \multicolumn{1}{c|}{}&\textbf{Total} &\textbf{ {{ locale.currency(sum_ + tax, grouping = True) }} }\\
     \cline{2-3}
   \end{tabu}
+  ~\\ ~\\
+  Please pay the total amount via bank transfer to the account with IBAN number: {{ payment_details.iban }}.
 \end{document}

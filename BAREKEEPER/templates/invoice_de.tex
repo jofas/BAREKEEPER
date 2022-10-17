@@ -38,20 +38,24 @@
     &IBAN:
     &{{ payment_details.iban }} \\
   {{ sender.address.postal_code }} {{sender.address.place }}
-   &
-   &St.-Nr.:
-   &{{ tax_id }}
-   &
-   &BIC:
-   &{{ payment_details.bic }} \\
+    &
+    &St.-Nr.:
+    &{{ tax_id }}
+    &
+    &BIC:
+    &{{ payment_details.bic }} \\
 
+  {{ sender.address.country }}
+    &
   {% if sender.VAT_no is not none %} %
-   &
-   &USt-IdNr.:
-   &{{ sender.VAT_no }}
-   &
-   & \\
+    &USt-IdNr.:
+    &{{ sender.VAT_no }}
+  {% else %} %
+    &
+    &
   {% endif %} %
+    &
+    & \\
   \end{tabu}
 }
 
