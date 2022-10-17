@@ -42,12 +42,14 @@ class Letter:
 
 
 class Person:
-    def __init__(self, address, company, name, phone, email):
+    def __init__(self, address, company, name, phone, email, VAT_no, meta):
         self.address = Address(**address)
         self.company = company
         self.name = name
         self.phone = phone
         self.email = email
+        self.VAT_no = VAT_no
+        self.meta = meta
 
 
 class Address:

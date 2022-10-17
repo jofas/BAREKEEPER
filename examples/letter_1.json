@@ -10,7 +10,9 @@
     "company": "Company 1",
     "name": null,
     "phone": "+49 1245 678910",
-    "email": "test@company1.de"
+    "email": "test@company1.de",
+    "VAT_no": null,
+    "meta": null
   },
   "letter_date": "2021-03-12",
   "letter_nr": 1,
@@ -25,7 +27,9 @@
     "company": "Company 2",
     "name": null,
     "phone": null,
-    "email": null
+    "email": null,
+    "VAT_no": null,
+    "meta": null
   },
   "headline": null,
   "content": "Sehr geehrte Damen und Herren,\n\nLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",

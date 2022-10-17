@@ -10,7 +10,9 @@
     "company": "Company 1",
     "name": null,
     "phone": "+49 1245 678910",
-    "email": "test@company1.de"
+    "email": "test@company1.de",
+    "VAT_no": null,
+    "meta": null
   },
   "tax_id": "ABC/DEFG/HIJK",
   "payment_details": {
@@ -31,7 +33,9 @@
     "company": "Company 2",
     "name": null,
     "phone": null,
-    "email": null
+    "email": null,
+    "VAT_no": null,
+    "meta": null
   },
   "entries": [
     {

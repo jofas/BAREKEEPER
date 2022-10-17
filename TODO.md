@@ -6,11 +6,11 @@
 
 * [x] doc generation into BAREKEEPER
 
-* [ ] Person `VAT_no`, `meta` fields
+* [x] Person `VAT_no`, `meta` fields (python + jsonnet)
 
-* [ ] render `VAT_no` and `meta` in invoice recipient
+* [ ] render `VAT_no` and `meta` in invoice + letter recipient
 
-* [ ] add `VAT_no` to footer
+* [ ] add `VAT_no` of sender to footer
 
 * [ ] invoice: english version
 
