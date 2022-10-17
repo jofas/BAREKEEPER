@@ -6,7 +6,11 @@
 
 * [x] doc generation into BAREKEEPER
 
-* [ ] invoice: USt-IdNr (VAT no)
+* [ ] Person `VAT_no`, `meta` fields
+
+* [ ] render `VAT_no` and `meta` in invoice recipient
+
+* [ ] add `VAT_no` to footer
 
 * [ ] invoice: english version
 
