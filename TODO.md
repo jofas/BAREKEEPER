@@ -4,6 +4,8 @@
 
 * [x] archive `invoice_generator`
 
+* [x] doc generation into BAREKEEPER
+
 * [ ] invoice: USt-IdNr (VAT no)
 
 * [ ] invoice: english version

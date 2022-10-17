@@ -31,4 +31,6 @@ the `invoice_nr`/`letter_nr` provided by the `json` input.
 
 * `python 3`
 
-* the `jinja2` and `fire` python packages
+* python deps: `jinja2`, `python-dateutil`, `lark`, `fire`
+
+* python dev deps: `pytest`, `autopep8`
