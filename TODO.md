@@ -12,7 +12,7 @@
 
 * [x] add `VAT_no` of sender to footer
 
-* [ ] invoice: english version
+* [x] invoice: english version
 
 * [ ] replace `pdflatex` with `pyFPDF`
 

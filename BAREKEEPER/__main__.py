@@ -58,15 +58,18 @@ class BAREKEEPER:
         g.as_csv(sys.stdout)
 
     def invoice(self):
-        locale.setlocale(locale.LC_ALL, locale="de_DE.UTF-8")
-
         invoice = Invoice(**json.loads(self.stream))
 
         env = Environment(
             loader=PackageLoader(__name__),
         )
 
-        template = env.get_template("invoice.tex")
+        locale.setlocale(locale.LC_ALL, locale=invoice.locale)
+
+        if invoice.locale[0:2] == "de":
+            template = env.get_template("invoice_de.tex")
+        else:
+            template = env.get_template("invoice_en.tex")
 
         pathlib.Path("./build").mkdir(exist_ok=True)
 

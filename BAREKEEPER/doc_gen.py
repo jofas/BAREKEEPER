@@ -10,7 +10,8 @@ class Invoice:
             invoice_date,
             invoice_nr,
             recipient,
-            entries):
+            entries,
+            locale):
         self.sender = Person(**sender)
         self.tax_id = tax_id
         self.payment_details = PaymentDetails(**payment_details)
@@ -18,6 +19,7 @@ class Invoice:
         self.invoice_nr = invoice_nr
         self.recipient = Person(**recipient)
         self.entries = [Entry(**e) for e in entries]
+        self.locale = locale
         self.total = sum([e.price for e in self.entries])
         self.tax = self.total * 0.19
 
