@@ -1,5 +1,5 @@
-import src.grouping_language as gl
-from src.time import TimeEntry
+import BAREKEEPER.grouping_language as gl
+from BAREKEEPER.time import TimeEntry
 
 
 def test_1():

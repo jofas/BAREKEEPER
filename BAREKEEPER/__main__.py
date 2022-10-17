@@ -11,11 +11,11 @@ import os
 from jinja2 import Environment, PackageLoader
 import fire
 
-from src.time import TimeEntry
-from src.doc_gen import Invoice, Letter
-import src.query_language as ql
-import src.grouping_language as gl
-from src.util import fmt_date
+from .time import TimeEntry
+from .doc_gen import Invoice, Letter
+from . import query_language as ql
+from . import grouping_language as gl
+from .util import fmt_date
 
 
 class BAREKEEPER:

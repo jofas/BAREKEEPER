@@ -1,5 +1,5 @@
-import src.query_language as ql
-from src.time import TimeEntry
+import BAREKEEPER.query_language as ql
+from BAREKEEPER.time import TimeEntry
 
 
 def test_lops_and():
