@@ -24,6 +24,19 @@ sh generate_examples.sh
 the `invoice_nr`/`letter_nr` provided by the `json` input.
 
 
+### Time Management
+
+#### How many work hours per month for a project X
+
+```bash
+python3 -m BAREKEEPER time \
+  --filter='p=="X"' \
+  --group_by="d.y,d.m" \
+  --transformer="BAREKEEPER.tf.sum_hours" \
+  time_sheet.json
+```
+
+
 ## Dependencies
 
 * `tex-live (linux/macOs)` or `MikeTeX (Windows)` with
