@@ -17,7 +17,6 @@ from . import query_language as ql
 from . import grouping_language as gl
 from .util import fmt_date
 
-
 class BAREKEEPER:
     def __init__(self, filename="-"):
         if filename == "-":
@@ -26,7 +25,7 @@ class BAREKEEPER:
             with open(filename) as file:
                 self.stream = file.read()
 
-    def time(self, filter=None, group_by=None, transformer="tf.no_tf"):
+    def time(self, filter=None, group_by=None, transformer="BAREKEEPER.tf.no_tf"):
         entries = [TimeEntry(**e) for e in json.loads(self.stream)]
 
         if filter is not None:
@@ -35,7 +34,7 @@ class BAREKEEPER:
 
         if os.path.isfile(transformer):
             spec = importlib.util.spec_from_file_location(
-                "tf.custom", transformer,
+                "BAREKEEPER.tf.custom", transformer,
             )
             t = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(t)
