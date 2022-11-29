@@ -81,6 +81,7 @@ class BAREKEEPER:
                 tax_id=invoice.tax_id,
                 payment_details=invoice.payment_details,
                 invoice_nr=invoice.invoice_nr,
+                order_nr=invoice.order_nr,
                 invoice_date=invoice.invoice_date,
                 recipient=invoice.recipient,
                 entries=invoice.entries,

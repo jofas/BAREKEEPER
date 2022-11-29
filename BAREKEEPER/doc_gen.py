@@ -9,6 +9,7 @@ class Invoice:
             payment_details,
             invoice_date,
             invoice_nr,
+            order_nr,
             recipient,
             entries,
             locale):
@@ -17,6 +18,7 @@ class Invoice:
         self.payment_details = PaymentDetails(**payment_details)
         self.invoice_date = parser.isoparse(invoice_date).date()
         self.invoice_nr = invoice_nr
+        self.order_nr = order_nr
         self.recipient = Person(**recipient)
         self.entries = [Entry(**e) for e in entries]
         self.locale = locale

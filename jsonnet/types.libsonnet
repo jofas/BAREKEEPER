@@ -26,7 +26,7 @@
     start: start,
     end: end,
   },
-  Invoice(sender, tax_id, payment_details, invoice_date, invoice_nr, recipient, entries, locale='de_DE.UTF-8'): {
+  Invoice(sender, tax_id, payment_details, invoice_date, invoice_nr, recipient, entries, locale='de_DE.UTF-8', order_nr=null): {
     sender: sender,
     tax_id: tax_id,
     payment_details: payment_details,
@@ -35,6 +35,7 @@
     recipient: recipient,
     entries: entries,
     locale: locale,
+    order_nr: order_nr,
   },
   Letter(sender, letter_date, letter_nr, recipient, headline, content, closing): {
     sender: sender,

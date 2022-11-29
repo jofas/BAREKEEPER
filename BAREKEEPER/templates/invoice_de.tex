@@ -105,6 +105,9 @@
 
   \begin{flushright}
     \displaydate{date}
+    {% if order_nr is not none%}
+      Bestellnummer: {{ order_nr }}
+    {% endif %}
   \end{flushright}
 
   \textbf{\Large{Rechnung Nr.\ {{ invoice_nr }} }}
